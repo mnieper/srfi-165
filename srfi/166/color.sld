@@ -1,5 +1,4 @@
-;; Copyright (C) Marc Nieper-Wißkirchen (2016, 2018).  All Rights
-;; Reserved.
+;; Copyright (C) Marc Nieper-Wißkirchen (2019).  All Rights Reserved.
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -21,8 +20,8 @@
 ;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(import (rename (srfi 165 test) (run-tests run-srfi-165-tests))
-	(rename (srfi 166 test) (run-tests run-srfi-166-tests)))
-
-(run-srfi-165-tests)
-(run-srfi-166-tests)
+(define-library (srfi 166 color)
+  (include-library-declarations "color.exports.scm")
+  (import (scheme base)
+	  (srfi 166 base))
+  (include "color.scm"))

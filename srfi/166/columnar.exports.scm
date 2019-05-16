@@ -1,5 +1,4 @@
-;; Copyright (C) Marc Nieper-Wißkirchen (2016, 2018).  All Rights
-;; Reserved.
+;; Copyright (C) Marc Nieper-Wißkirchen (2019).  All Rights Reserved.
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -21,8 +20,5 @@
 ;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(import (rename (srfi 165 test) (run-tests run-srfi-165-tests))
-	(rename (srfi 166 test) (run-tests run-srfi-166-tests)))
-
-(run-srfi-165-tests)
-(run-srfi-166-tests)
+(export columnar tabular wrapped wrapped/list wrapped/char justified
+	from-file line-numbers)

@@ -1,5 +1,4 @@
-;; Copyright (C) Marc Nieper-Wißkirchen (2016, 2018).  All Rights
-;; Reserved.
+;; Copyright (C) Marc Nieper-Wißkirchen (2019).  All Rights Reserved.
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -21,8 +20,19 @@
 ;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(import (rename (srfi 165 test) (run-tests run-srfi-165-tests))
-	(rename (srfi 166 test) (run-tests run-srfi-166-tests)))
-
-(run-srfi-165-tests)
-(run-srfi-166-tests)
+(define-library (srfi 166)
+  (export show displayed written written-shared written-simply escaped
+	  maybe-escaped numeric numeric/comma numeric/si numeric/fitted nl fl
+	  space-to tab-to nothing each each-in-list joined joined/prefix
+	  joined/suffix joined/last joined/dot joined/range padded padded/right
+	  padded/both trimmed trimmed/right trimmed/both trimmed/lazy
+	  fitted fitted/right fitted/both
+	  fn with with! forked call-with-output make-state-variable
+	  port row col width output writer string-width pad-char ellipsis
+	  radix precision decimal-sep decimal-align sign-rule comma-rule
+	  comma-sep word-separator? ambiguous-is-wide?)
+  (include-library-declarations "166/color.exports.scm")
+  (include-library-declarations "166/columnar.exports.scm")
+  (import (srfi 166 base))
+  (import (srfi 166 columnar))
+  (import (srfi 166 color)))

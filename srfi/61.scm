@@ -1,5 +1,4 @@
-;; Copyright (C) Marc Nieper-Wißkirchen (2016, 2018).  All Rights
-;; Reserved.
+;; Copyright (C) Marc Nieper-Wißkirchen (2019).  All Rights Reserved.
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -21,8 +20,30 @@
 ;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(import (rename (srfi 165 test) (run-tests run-srfi-165-tests))
-	(rename (srfi 166 test) (run-tests run-srfi-166-tests)))
+(define-syntax cond
+  (syntax-rules (=> else)
+    ((cond (else expr1 expr2 ...))
+     (begin expr1 expr2 ...))
+    ((cond (test => receiver) clause ...)
+     (let ((t test))
+       (%cond t (receiver t) clause ...)))
+    ((cond (generator guard => receiver) clause ...)
+     (call-with-values (lambda () generator)
+       (lambda t
+         (%cond (apply guard t)
+		(apply receiver t)
+		clause ...))))
+    ((cond (test) clause ...)
+     (let ((t test))
+       (%cond t t clause ...)))
+    ((cond (test body1 body2 ...) clause ...)
+     (%cond test
+            (begin body1 body2 ...)
+            clause ...))))
 
-(run-srfi-165-tests)
-(run-srfi-166-tests)
+(define-syntax %cond
+  (syntax-rules ()
+    ((_ test consequent)
+     (if test consequent))
+    ((_ test consequent clause ...)
+     (if test consequent (cond clause ...)))))
